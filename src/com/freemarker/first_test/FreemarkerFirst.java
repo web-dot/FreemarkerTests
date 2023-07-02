@@ -47,7 +47,7 @@ public class FreemarkerFirst {
 			Template template = freemarkerConfig.getTemplate("employee_result.ftl");
 			
 			// step 3: create a data model
-			Map<String, List<EmployeeDto>> dataModel = new HashMap<>();
+			Map<String, List<EmployeeDto>> dynamicModel = new HashMap<>();
 			
 			new EmployeeDto("Sunil", 50000, "Developer");
 			new EmployeeDto("Anjali", 30000, "Human Resources");
@@ -79,17 +79,26 @@ public class FreemarkerFirst {
 					new EmployeeDto("Dinesh", 65000, "Operaions")
 							));
 			
-			dataModel.put("2022-23", yearData1);
-			dataModel.put("2021-22", yearData2);
-			dataModel.put("2020-21", yearData3);
+			dynamicModel.put("2022-23", yearData1);
+			dynamicModel.put("2021-22", yearData2);
+			dynamicModel.put("2020-21", yearData3);
 			
+			Map<String, String> constantsModel = new HashMap<>();
+			
+			constantsModel.put("pdf-header", "Employee Data For Years");
+			
+			
+			Map<String, Object> combinedModel = new HashMap<>();
+			
+			combinedModel.putAll(dynamicModel);
+			combinedModel.putAll(constantsModel);
 			
 			// step 4: process the ftl template with the data
 			StringWriter writer = new StringWriter();
-			template.process(dataModel, writer);
-			String xslFoContent = readFileContent("employee_results.xsl");
+			template.process(combinedModel, writer);
+			String xslFoContent = readFileContent("employee_result.xsl");
 			String outputPath  = "C:\\Users\\fedev\\OneDrive\\Documents\\eclipse_workspaces\\primary_workspace\\FreemarkerTest\\pdf";
-			String populatedTemplate = processTemplateWithData(template, dataModel, outputPath);
+			String populatedTemplate = processTemplateWithData(template, combinedModel, outputPath);
 			
 			
 			// step 5: generate the pdf using apache FOP
@@ -118,16 +127,16 @@ public class FreemarkerFirst {
 	
 	private static String readFileContent(String filePath) {
 	    try {
-	        return new String(Files.readAllBytes(Paths.get("templates/" + filePath)));
+	        return new String(Files.readAllBytes(Paths.get("src/templates/" + filePath)));
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	        return null; // or handle the exception according to your requirements
 	    }
 	}
 	
-	private static String processTemplateWithData(Template template, Map<String, List<EmployeeDto>> dataModel, String outputPath) {
+	private static String processTemplateWithData(Template template, Map<String, Object> combinedModel, String outputPath) {
 		try (Writer writer  = new FileWriter(outputPath)){
-			template.process(dataModel, writer);
+			template.process(combinedModel, writer);
 			
 		}
 		catch(IOException | TemplateException e) {

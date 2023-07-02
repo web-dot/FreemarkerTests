@@ -4,5 +4,9 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Users/fedev/Downloads/fop-2.8-bin/fop-2.8/fop/build/fop.jar"/>
 	<classpathentry kind="lib" path="C:/Users/fedev/Downloads/apache-freemarker/apache-freemarker-2.3.32-bin/freemarker.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fedev/Downloads/xmlgraphics-commons-2.8-bin/xmlgraphics-commons-2.8/build/xmlgraphics-commons-2.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fedev/Downloads/commons-logging-1.2-bin/commons-logging-1.2/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fedev/Downloads/commons-io-2.13.0-bin/commons-io-2.13.0/commons-io-2.13.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fedev/Downloads/batik-bin-1.16/batik-1.16/lib/batik-all-1.16.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
